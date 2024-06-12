@@ -10,6 +10,36 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/user',
+      name: 'userList',
+      component: () => import('@/pages/user/Index.vue')
+    },
+    {
+      path: '/user/new',
+      name: 'userNew',
+      component: () => import('@/pages/user/New.vue')
+    },
+    {
+      path: '/user/team/:tid',
+      name: 'userTeam',
+      component: () => import('@/pages/user/Team.vue')
+    },
+    {
+      path: '/post',
+      name: 'postList',
+      component: () => import('@/pages/post/Index.vue')
+    },
+    {
+      path: '/group',
+      name: 'groupList',
+      component: () => import('@/pages/group/Index.vue')
+    },
+    {
+      path: '/group/new',
+      name: 'groupNew',
+      component: () => import('@/pages/group/New.vue')
+    },
+    {
       path: '/404',
       name: '404',
       component: () => import('@/pages/404.vue')
