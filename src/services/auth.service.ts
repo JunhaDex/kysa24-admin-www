@@ -14,6 +14,7 @@ export class AuthService extends ApiService {
     const res = await this.api.post('/login', { userId, password })
     const auth = useAuthStore()
     const token = this.unpackRes(res) as LoginResponse
+    console.log('???', token)
     auth.setJwt(token.accessToken)
   }
 

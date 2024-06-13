@@ -20,7 +20,7 @@ export class UserService extends ApiService {
     name?: string
     teamName?: string
   }): Promise<PageResponse<UserResponse>> {
-    const res = await this.auth().api.get('/', { params: cleanRequestObj(query) })
+    const res = await this.auth().api.get('', { params: cleanRequestObj(query) })
     return this.unpackRes(res) as PageResponse<UserResponse>
   }
 
