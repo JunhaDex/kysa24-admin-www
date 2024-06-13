@@ -3,7 +3,7 @@
   <div class="teleport">
     <!--SideBar, Alert, Toast, No Modal-->
     <!--Component here controlled by ui store (not main logic)-->
-    <SideNav />
+    <!--    <SideNav />-->
   </div>
 </template>
 <script setup lang="ts">

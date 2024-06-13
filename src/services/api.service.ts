@@ -13,7 +13,7 @@ export abstract class ApiService {
     })
   }
 
-  async auth(): Promise<this> {
+  auth(): this {
     const auth = useAuthStore()
     const token = auth.jwt
     if (token) {
@@ -26,5 +26,4 @@ export abstract class ApiService {
   unpackRes(res: AxiosResponse): unknown {
     return res.data.result
   }
-
 }

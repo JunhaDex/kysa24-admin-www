@@ -21,7 +21,7 @@ export class AuthService extends ApiService {
     this.auth.setJwt('')
   }
 
-  async createAdmin(params: { loginId: string, pwd: string, name: string }): Promise<void> {
+  async createAdmin(params: { loginId: string; pwd: string; name: string }): Promise<void> {
     await this.auth().api.post('/new', params)
   }
 }
