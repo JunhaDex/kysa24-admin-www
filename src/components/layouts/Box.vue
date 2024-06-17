@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-5">
+  <div class="card">
     <slot />
   </div>
 </template>
@@ -9,7 +9,6 @@
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 12px;
-  margin-bottom: 20px;
+  padding: 22px;
 }
 </style>

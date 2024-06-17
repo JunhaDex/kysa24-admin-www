@@ -5,10 +5,12 @@
 :root {
     --footer-height: 95px;
     --header-height: 64px;
+    font-size: 14pt;
 }
 
 body {
     padding-top: var(--header-height);
+    background-color: #f3f3f3; /* gray 50 */
 }
 
 .prevent-scroll {

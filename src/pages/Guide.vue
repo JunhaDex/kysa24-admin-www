@@ -1,6 +1,9 @@
 <template>
   <h1>Guide</h1>
   <ListColumn :table-config="UserTable" />
+  <Container>
+    <EmptyState />
+  </Container>
   <section>
     <h2>Auth</h2>
     <div>
@@ -40,6 +43,8 @@ import { onMounted } from 'vue'
 import axios from 'axios'
 import ListColumn from '@/components/displays/table/ListColumn.vue'
 import { UserTable } from '@/constants/tables/user_table.constant'
+import Container from '@/components/layouts/Container.vue'
+import EmptyState from '@/components/layouts/EmptyState.vue'
 
 const authStore = useAuthStore()
 const { jwt } = authStore
