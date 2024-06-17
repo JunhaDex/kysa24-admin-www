@@ -27,8 +27,8 @@
 <script setup lang="ts">
 import Container from '@/components/layouts/Container.vue'
 import PageView from '@/components/layouts/PageView.vue'
-import Header from '@/components/layouts/Header.vue'
-import Footer from '@/components/layouts/Footer.vue'
+import Header from '@/components/surfaces/Header.vue'
+import Footer from '@/components/surfaces/Footer.vue'
 import Modal from '@/components/feedbacks/Modal.vue'
 import { ref } from 'vue'
 

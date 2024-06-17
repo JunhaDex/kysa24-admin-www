@@ -3,9 +3,17 @@
 @tailwind utilities;
 
 :root {
-    --footer-height: 95px;
-    --header-height: 64px;
+    --footer-height: 56px;
+    --header-height: 75px;
     font-size: 14pt;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    font-weight: normal;
 }
 
 body {

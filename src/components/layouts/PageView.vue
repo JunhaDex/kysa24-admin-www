@@ -9,7 +9,8 @@
 <style scoped>
 /* height: calc(100vh - var(--footer-height)); */
 main {
-  height: 100vh;
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
 }

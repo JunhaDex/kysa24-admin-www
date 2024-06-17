@@ -1,6 +1,5 @@
 <template>
   <h1>Guide</h1>
-  <ListColumn :table-config="UserTable" />
   <Container>
     <EmptyState />
   </Container>

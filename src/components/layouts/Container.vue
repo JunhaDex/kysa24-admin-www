@@ -1,5 +1,6 @@
 <template>
   <section class="container mb-6" :class="{ 'container-full': stretch }">
+    <h2 v-if="title" class="text-lg font-bold mb-[20px]">{{ title }}</h2>
     <slot />
   </section>
 </template>
@@ -7,6 +8,7 @@
 const props = withDefaults(
   defineProps<{
     stretch?: boolean
+    title?: string
   }>(),
   {
     stretch: false
