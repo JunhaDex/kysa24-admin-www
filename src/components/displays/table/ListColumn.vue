@@ -13,14 +13,10 @@
       {{ action.label }}
     </button>
   </div>
-  <Filter
-    :filter-config="tableConfig.filters"
-    :extended="filterExtended"
-    @filter-change="filterChange"
-  />
+  <Filter :filter-config="tableConfig.filters" @filter-change="filterChange" ref="tableFilter" />
   <Box class="mt-5">
     <div class="overflow-x-auto">
-      <table class="table table-zebra">
+      <table class="table table-zebra whitespace-nowrap">
         <thead>
           <tr>
             <th v-if="tableConfig.selectable">
@@ -53,9 +49,22 @@
               <Badge
                 v-else-if="tableConfig.columns[key].contentType === 'badge'"
                 :index="key"
-                :label="listItem.name"
+                :label="listItem[key]"
               />
-              <p v-else>{{ listItem.name }}</p>
+              <CodeWrap
+                v-else-if="tableConfig.columns[key].contentType === 'short'"
+                :original="listItem[key]"
+                :display="listItem[key].slice(-6)"
+              />
+              <p
+                v-else-if="
+                  tableConfig.columns[key].contentType === 'date' ||
+                  tableConfig.columns[key].contentType === 'datetime'
+                "
+              >
+                {{ formatDate(listItem[key], tableConfig.columns[key].contentType) }}
+              </p>
+              <p v-else>{{ listItem[key] }}</p>
             </td>
           </tr>
         </tbody>
@@ -72,8 +81,9 @@ import Box from '@/components/layouts/Box.vue'
 import Badge from '@/components/displays/Badge.vue'
 import Avatar from '@/components/displays/Avatar.vue'
 import Paginate from '@/components/displays/table/Paginate.vue'
+import CodeWrap from '@/components/displays/CodeWrap.vue'
+import { formatDate } from '@/utils/index.util'
 
-const filterExtended = ref(false)
 const props = defineProps<{
   data: PageResponse<unknown>
   tableConfig: TableConfig
@@ -81,7 +91,7 @@ const props = defineProps<{
     inputSupport?: any
   }
 }>()
-
+const tableFilter = ref()
 const pgn = computed(() => {
   return props.data.meta.pageSize * (props.data.meta.pageNo - 1)
 })
@@ -97,7 +107,7 @@ function filterChange(payload: any) {
 }
 
 function toggleFilter() {
-  filterExtended.value = !filterExtended.value
+  tableFilter.value.toggleFilter()
 }
 
 function selectAll() {

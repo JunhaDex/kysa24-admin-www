@@ -9,7 +9,7 @@ export class GroupService extends ApiService {
   }
 
   async listGroup(query?: { page?: number; size?: number }): Promise<PageResponse<GroupResponse>> {
-    const res = await this.auth().api.get('/', {
+    const res = await this.auth().api.get('', {
       params: cleanRequestObj(query)
     })
     return this.unpackRes(res) as PageResponse<GroupResponse>

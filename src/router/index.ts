@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/pages/Home.vue'
+import { useAuthStore } from '@/stores/auth.store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,11 +63,24 @@ const router = createRouter({
   ]
 })
 
+const AUTH_REQUIRED: string[] = [
+  'home',
+  'userList',
+  'userNew',
+  'userTeam',
+  'postList',
+  'groupList',
+  'groupNew'
+] as const
 router.beforeEach((to, from, next) => {
   if (to.matched.length < 1) {
     next(false)
     router.push({ name: '404' })
   } else {
+    const authStore = useAuthStore()
+    if (AUTH_REQUIRED.includes(to.name!.toString()) && !authStore.jwt) {
+      next({ name: 'login' })
+    }
     next()
   }
 })

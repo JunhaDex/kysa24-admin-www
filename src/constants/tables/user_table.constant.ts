@@ -6,16 +6,16 @@ export const UserTable: TableConfig = {
   actionable: true,
   filters: {
     name: { display: '이름', type: 'text' },
-    teamName: { display: '조', type: 'select' }
+    teamName: { display: '조', type: 'text' }
   },
   columns: {
     profileImg: { display: '프로필', contentType: 'image' },
     name: { display: '이름' },
     nickname: { display: '닉네임' },
-    ref: { display: '유저 키' },
+    ref: { display: '유저 키', contentType: 'short' },
     sex: { display: '성별', contentType: 'badge' },
     age: { display: '나이' },
-    dob: { display: '생년월일' },
+    dob: { display: '생년월일', contentType: 'date' },
     authId: { display: '아이디' },
     teamName: { display: '조' },
     geo: { display: '지역' },

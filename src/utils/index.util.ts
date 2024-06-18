@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export function cleanRequestObj(obj: any) {
   if (!obj) return obj
   return Object.keys(obj).reduce((acc: any, key: string) => {
@@ -7,4 +9,11 @@ export function cleanRequestObj(obj: any) {
     }
     return acc
   }, {})
+}
+
+export function formatDate(unix: number, coverage?: 'date' | 'datetime') {
+  if (coverage === 'datetime') {
+    return dayjs(unix).tz().format('YYYY-MM-DD HH:mm:ss')
+  }
+  return dayjs(unix).tz().format('YYYY-MM-DD')
 }

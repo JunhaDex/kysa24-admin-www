@@ -44,11 +44,12 @@ import Badge from '@/components/displays/Badge.vue'
 
 const props = defineProps<{
   filterConfig: TableConfig['filters']
-  extended: boolean
   prefill?: { [key: string]: string }
 }>()
 
+const extended = ref(false)
 const emit = defineEmits(['filterChange'])
+defineExpose({ toggleFilter })
 
 const filterInputs = ref()
 const inputRefs = ref([])
@@ -71,6 +72,10 @@ onMounted(() => {
   console.log('filterInputs', filterInputs.value)
   console.log('isEmpty', isEmpty.value)
 })
+
+function toggleFilter() {
+  extended.value = !extended.value
+}
 
 function updateFilter() {
   const filtered = Object.keys(filterInputs.value).reduce((acc: any, key: string) => {

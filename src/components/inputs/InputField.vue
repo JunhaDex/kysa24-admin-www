@@ -5,7 +5,13 @@
     </div>
     <span class="input input-bordered input-sm flex items-center gap-2">
       <i v-if="prefix" :class="prefixClass"></i>
-      <input v-model="model" type="text" class="grow" @focusout="focusoutHandler" />
+      <input
+        v-model="model"
+        class="grow"
+        :type="filter.type"
+        :placeholder="filter.placeholder ?? ''"
+        @focusout="focusoutHandler"
+      />
     </span>
   </div>
 </template>
@@ -24,6 +30,7 @@ const props = defineProps<{
   filter: {
     display: string
     type: string
+    placeholder?: string
   }
   prefix?: 'search'
   initialValue?: string

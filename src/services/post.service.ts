@@ -13,7 +13,7 @@ export class PostService extends ApiService {
     size?: number
     groupRef?: string
   }): Promise<PageResponse<PostResponse>> {
-    const res = await this.auth().api.get('/', {
+    const res = await this.auth().api.get('', {
       params: cleanRequestObj(query)
     })
     return this.unpackRes(res) as PageResponse<PostResponse>

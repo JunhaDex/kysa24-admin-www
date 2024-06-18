@@ -10,13 +10,13 @@ export interface PageResponse<T> {
 
 export interface TableColumn {
   display: string
-  contentType?: 'image' | 'link' | 'badge'
+  contentType?: 'image' | 'link' | 'badge' | 'short' | 'date' | 'datetime' | 'text'
   align?: 'left' | 'center' | 'right'
 }
 
 export interface FilterItem {
   display: string
-  type: 'text' | 'select' | 'date'
+  type: 'text' | 'date'
 }
 
 export interface Actionable {
