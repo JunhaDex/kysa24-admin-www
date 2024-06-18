@@ -26,6 +26,13 @@ export interface TeamResponse {
   updatedAt: Date
 }
 
+export interface TeamListResponse {
+  list: { id: number; teamName: string }[]
+  meta: {
+    totalCount: number
+  }
+}
+
 export interface UsersByTeamResponse {
   team: TeamResponse
   users: UserResponse[]
@@ -33,7 +40,7 @@ export interface UsersByTeamResponse {
 
 export interface CreateUserRequest {
   name: string
-  sex: 'm' | 'f'
+  sex: 'm' | 'f' | ''
   nickname: string
   id: string
   pwd: string

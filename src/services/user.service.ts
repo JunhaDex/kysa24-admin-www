@@ -2,6 +2,7 @@ import { ApiService } from '@/services/api.service'
 import type {
   ChangePwdRequest,
   CreateUserRequest,
+  TeamListResponse,
   UserBlockRequest,
   UserResponse,
   UsersByTeamResponse
@@ -39,5 +40,10 @@ export class UserService extends ApiService {
   async listUserByTeam(teamId: number): Promise<UsersByTeamResponse> {
     const res = await this.auth().api.get(`team/${teamId}`)
     return this.unpackRes(res) as UsersByTeamResponse
+  }
+
+  async listTeam(): Promise<TeamListResponse> {
+    const res = await this.auth().api.get('team')
+    return this.unpackRes(res) as TeamListResponse
   }
 }

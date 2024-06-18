@@ -17,3 +17,7 @@ export function formatDate(unix: number, coverage?: 'date' | 'datetime') {
   }
   return dayjs(unix).tz().format('YYYY-MM-DD')
 }
+
+export function convertUTC(dateStr: string) {
+  return dayjs(dateStr).tz().utc().format()
+}

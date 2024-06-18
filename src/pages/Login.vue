@@ -21,7 +21,7 @@
             @update-value="userInputPwd"
           />
           <div class="flex justify-center items-center mt-5">
-            <button class="btn btn-primary btn-sm w-16" @click="login">로그인</button>
+            <button class="btn btn-primary btn-sm w-full" @click="login">로그인</button>
           </div>
         </form>
       </Box>
@@ -58,6 +58,7 @@ function userInputPwd(value: string) {
 async function login() {
   try {
     await authSvc.login(userCred.value.userId, userCred.value.password)
+    window.location.href = '/'
   } catch (e) {
     console.error(e)
     errorHandling()
