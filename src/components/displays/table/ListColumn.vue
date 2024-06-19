@@ -1,13 +1,13 @@
 <template>
-  <div class="table-tools flex justify-end">
-    <button v-if="showFilter" class="btn btn-outline btn-sm ml-3" @click="toggleFilter">
+  <div class="table-tools flex justify-end flex-wrap overflow-x-auto">
+    <button v-if="showFilter" class="btn btn-outline btn-xs ml-1" @click="toggleFilter">
       <i class="bx bx-filter mr-1"></i>
       Filter
     </button>
     <button
       v-for="action in tableConfig.actions ?? []"
-      class="btn btn-outline btn-sm ml-3"
-      @click="() => actTableItem(action.emission, null)"
+      class="btn btn-outline btn-xs ml-1"
+      @click="() => actTableItem(action.emission)"
       :key="action.emission"
     >
       {{ action.label }}
@@ -79,7 +79,7 @@
         </tbody>
       </table>
     </div>
-    <Paginate v-if="showPaginate" :meta="data.meta" />
+    <Paginate v-if="showPaginate" :meta="data.meta" @select-next-page="loadPage" />
   </Box>
 </template>
 <script lang="ts" setup>
@@ -114,15 +114,23 @@ const showPaginate = computed(() => {
 const showFilter = computed(() => {
   return !props.options?.isNoFilter
 })
-const emit = defineEmits(['filterChange', 'tableAction'])
+const emit = defineEmits(['filterChange', 'loadPage', 'tableAction'])
 const selected = ref<number[]>([])
 
-function actTableItem(action: string, item: any) {
-  emit('tableAction', { action, item })
+function actTableItem(action: string) {
+  emit('tableAction', { action, items: collectSelected() })
+}
+
+function collectSelected(): any[] {
+  return props.data.list.filter((_, i) => selected.value.includes(pgn.value + (i + 1)))
 }
 
 function filterChange(payload: any) {
   emit('filterChange', payload)
+}
+
+function loadPage(pageNo: number) {
+  emit('loadPage', pageNo)
 }
 
 function toggleFilter() {
@@ -130,10 +138,10 @@ function toggleFilter() {
 }
 
 function selectAll() {
-  if (selected.value.length === data.value.list.length) {
+  if (selected.value.length === props.data.list.length) {
     selected.value = []
   } else {
-    selected.value = data.value.list.map((_, i) => pgn.value + (i + 1))
+    selected.value = props.data.list.map((_, i) => pgn.value + (i + 1))
   }
 }
 

@@ -1,3 +1,5 @@
+import type { LinkItem } from '@/types/general.type'
+
 export interface GroupResponse {
   id: number
   ref: string
@@ -6,7 +8,7 @@ export interface GroupResponse {
   creatorRef: string
   groupName: string
   profileImg: string | null
-  coverImg: string | null
+  coverImg: LinkItem | null
   introduce: string
   isShow: number
   createdAt: Date

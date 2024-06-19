@@ -4,9 +4,9 @@
       <i class="bx bx-filter"></i>
     </button>
     <Badge
-      v-for="key in Object.keys(filterInputs).filter((i) => filterInputs[i] !== undefined)"
+      v-for="key in Object.keys(filterEffect).filter((i) => filterEffect[i] !== undefined)"
       :index="key"
-      :label="filterInputs[key]"
+      :label="filterEffect[key]"
       removable
       :key="`fb-${key}`"
       @remove-badge="removeBadge"
@@ -52,6 +52,7 @@ const emit = defineEmits(['filterChange'])
 defineExpose({ toggleFilter })
 
 const filterInputs = ref()
+const filterEffect = ref<any>({})
 const inputRefs = ref([])
 const isEmpty = computed(() => {
   if (filterInputs.value) {
@@ -84,8 +85,9 @@ function updateFilter() {
     }
     return acc
   }, {})
-  clearInputRefs()
+  filterEffect.value = filtered
   emit('filterChange', filtered)
+  clearInputRefs()
 }
 
 function clearInputRefs() {

@@ -1,9 +1,11 @@
+import type { LinkItem } from '@/types/general.type'
+
 export interface PostResponse {
   id: number
   author: number
   authorName: string
   authorRef: string
-  image: string | null
+  image: LinkItem | null
   message: string
   groupId: number
   groupName: string

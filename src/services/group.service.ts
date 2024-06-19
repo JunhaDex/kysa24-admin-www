@@ -1,5 +1,5 @@
 import { ApiService } from '@/services/api.service'
-import type { PageResponse } from '@/types/general.type'
+import type { LinkItem, PageResponse } from '@/types/general.type'
 import type { CreateGroupRequest, GroupResponse } from '@/types/group.type'
 import { cleanRequestObj } from '@/utils/index.util'
 
@@ -8,11 +8,28 @@ export class GroupService extends ApiService {
     super('group')
   }
 
-  async listGroup(query?: { page?: number; size?: number }): Promise<PageResponse<GroupResponse>> {
+  async listGroup(query?: { page?: number; size?: number; groupName?: string }): Promise<PageResponse<GroupResponse>> {
     const res = await this.auth().api.get('', {
       params: cleanRequestObj(query)
     })
-    return this.unpackRes(res) as PageResponse<GroupResponse>
+    const groupPg = this.unpackRes(res) as PageResponse<GroupResponse>
+    const linkKeys = ['coverImg'] as const
+    for (const group of groupPg.list) {
+      linkKeys.forEach((key) => {
+        let linkItem: LinkItem
+        switch (key) {
+          case 'coverImg':
+            linkItem = {
+              label: `${group.groupName} 의 커버`,
+              url: group.coverImg as unknown as string,
+              isBlank: true
+            }
+            break
+        }
+        group[key] = linkItem
+      })
+    }
+    return groupPg
   }
 
   async createGroup(

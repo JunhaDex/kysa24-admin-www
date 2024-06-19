@@ -59,6 +59,5 @@ export interface UserBlockRequest {
 }
 
 export interface ChangePwdRequest {
-  oldPwd: string
   newPwd: string
 }

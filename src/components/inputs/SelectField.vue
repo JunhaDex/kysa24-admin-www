@@ -1,5 +1,5 @@
 <template>
-  <div class="form-control w-full">
+  <div class="form-control">
     <div class="label">
       <label class="label-text text-xs font-bold">{{ filter.display }}</label>
     </div>
