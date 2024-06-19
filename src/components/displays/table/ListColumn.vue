@@ -1,6 +1,6 @@
 <template>
   <div class="table-tools flex justify-end">
-    <button class="btn btn-outline btn-sm ml-3" @click="toggleFilter">
+    <button v-if="showFilter" class="btn btn-outline btn-sm ml-3" @click="toggleFilter">
       <i class="bx bx-filter mr-1"></i>
       Filter
     </button>
@@ -13,7 +13,12 @@
       {{ action.label }}
     </button>
   </div>
-  <Filter :filter-config="tableConfig.filters" @filter-change="filterChange" ref="tableFilter" />
+  <Filter
+    v-if="showFilter"
+    :filter-config="tableConfig.filters"
+    @filter-change="filterChange"
+    ref="tableFilter"
+  />
   <Box class="mt-5">
     <div class="overflow-x-auto">
       <table class="table table-zebra whitespace-nowrap">
@@ -56,6 +61,10 @@
                 :original="listItem[key]"
                 :display="listItem[key].slice(-6)"
               />
+              <Hyperlink
+                v-else-if="tableConfig.columns[key].contentType === 'link'"
+                :link-item="listItem[key]"
+              />
               <p
                 v-else-if="
                   tableConfig.columns[key].contentType === 'date' ||
@@ -70,7 +79,7 @@
         </tbody>
       </table>
     </div>
-    <Paginate :meta="data.meta" />
+    <Paginate v-if="showPaginate" :meta="data.meta" />
   </Box>
 </template>
 <script lang="ts" setup>
@@ -82,6 +91,7 @@ import Badge from '@/components/displays/Badge.vue'
 import Avatar from '@/components/displays/Avatar.vue'
 import Paginate from '@/components/displays/table/Paginate.vue'
 import CodeWrap from '@/components/displays/CodeWrap.vue'
+import Hyperlink from '@/components/displays/Hyperlink.vue'
 import { formatDate } from '@/utils/index.util'
 
 const props = defineProps<{
@@ -89,11 +99,20 @@ const props = defineProps<{
   tableConfig: TableConfig
   options?: {
     inputSupport?: any
+    isNoPaginate?: boolean
+    isNoFilter?: boolean
   }
 }>()
 const tableFilter = ref()
 const pgn = computed(() => {
   return props.data.meta.pageSize * (props.data.meta.pageNo - 1)
+})
+const showPaginate = computed(() => {
+  return !props.options?.isNoPaginate
+})
+
+const showFilter = computed(() => {
+  return !props.options?.isNoFilter
 })
 const emit = defineEmits(['filterChange', 'tableAction'])
 const selected = ref<number[]>([])

@@ -1,3 +1,5 @@
+import type { LinkItem } from '@/types/general.type'
+
 export interface UserResponse {
   id: number
   ref: string
@@ -8,9 +10,9 @@ export interface UserResponse {
   nickname: string
   authId: string
   teamId: number
-  teamName: string
+  teamName: LinkItem
   profileImg: string
-  coverImg: string
+  coverImg: LinkItem
   introduce: string
   geo: string
   actStatus: number

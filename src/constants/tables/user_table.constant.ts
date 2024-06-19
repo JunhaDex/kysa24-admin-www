@@ -17,7 +17,7 @@ export const UserTable: TableConfig = {
     age: { display: '나이' },
     dob: { display: '생년월일', contentType: 'date' },
     authId: { display: '아이디' },
-    teamName: { display: '조' },
+    teamName: { display: '조', contentType: 'link' },
     geo: { display: '지역' },
     actStatus: { display: '상태', contentType: 'badge' }
   },

@@ -68,7 +68,11 @@
               @update-value="handleUserInput('geo', $event)"
             />
             <div class="flex justify-center items-center mt-5">
-              <button class="btn btn-primary btn-sm w-full" @click="submitCreateUser">
+              <button
+                class="btn btn-primary btn-sm w-full"
+                @click="submitCreateUser"
+                :disabled="!canCreate"
+              >
                 생성하기
               </button>
             </div>
@@ -82,7 +86,7 @@
   </PageView>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import PageView from '@/components/layouts/PageView.vue'
 import Header from '@/components/surfaces/Header.vue'
 import Footer from '@/components/surfaces/Footer.vue'
@@ -107,6 +111,9 @@ const createRequest = ref<CreateUserRequest>({
   geo: '',
   dob: ''
 })
+const canCreate = computed(() => {
+  return Object.values(createRequest.value).every((v) => !!v)
+})
 
 onMounted(async () => {
   const opts = await userSvc.listTeam()
@@ -117,7 +124,6 @@ onMounted(async () => {
     },
     {} as { [key: string]: string }
   )
-  console.log(teams.value)
 })
 
 function handleUserInput(key: createRequestKey, value: any) {

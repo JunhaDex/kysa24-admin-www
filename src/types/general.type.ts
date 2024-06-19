@@ -19,6 +19,12 @@ export interface FilterItem {
   type: 'text' | 'date'
 }
 
+export interface LinkItem {
+  label: string
+  url: string
+  isBlank: boolean
+}
+
 export interface Actionable {
   label: string
   emission: string

@@ -7,7 +7,7 @@ import type {
   UserResponse,
   UsersByTeamResponse
 } from '@/types/user.type'
-import type { PageResponse } from '@/types/general.type'
+import type { LinkItem, PageResponse } from '@/types/general.type'
 import { cleanRequestObj } from '@/utils/index.util'
 
 export class UserService extends ApiService {
@@ -22,7 +22,31 @@ export class UserService extends ApiService {
     teamName?: string
   }): Promise<PageResponse<UserResponse>> {
     const res = await this.auth().api.get('', { params: cleanRequestObj(query) })
-    return this.unpackRes(res) as PageResponse<UserResponse>
+    const userPg = this.unpackRes(res) as PageResponse<UserResponse>
+    const linkKeys = ['teamName', 'coverImg'] as const
+    for (const user of userPg.list) {
+      linkKeys.forEach((key) => {
+        let linkItem: LinkItem
+        switch (key) {
+          case 'teamName':
+            linkItem = {
+              label: user.teamName as unknown as string,
+              url: `user/team/${user.teamId}`,
+              isBlank: false
+            }
+            break
+          case 'coverImg':
+            linkItem = {
+              label: `${user.name} 의 커버`,
+              url: user.coverImg as unknown as string,
+              isBlank: true
+            }
+            break
+        }
+        user[key] = linkItem
+      })
+    }
+    return userPg
   }
 
   async createUser(register: CreateUserRequest): Promise<void> {
