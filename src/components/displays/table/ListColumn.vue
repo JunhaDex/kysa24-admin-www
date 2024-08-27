@@ -71,7 +71,7 @@
                   tableConfig.columns[key].contentType === 'datetime'
                 "
               >
-                {{ formatDate(listItem[key], tableConfig.columns[key].contentType) }}
+                {{ formatDate(listItem[key], tableConfig.columns[key].contentType as any) }}
               </p>
               <p v-else>{{ listItem[key] }}</p>
             </td>
@@ -95,7 +95,7 @@ import Hyperlink from '@/components/displays/Hyperlink.vue'
 import { formatDate } from '@/utils/index.util'
 
 const props = defineProps<{
-  data: PageResponse<unknown>
+  data: PageResponse<any>
   tableConfig: TableConfig
   options?: {
     inputSupport?: any
