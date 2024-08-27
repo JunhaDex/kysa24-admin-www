@@ -1,5 +1,16 @@
 {
   "projects": {
-    "default": "kysa24-admin"
-  }
+    "default": "kysa24-sns"
+  },
+  "targets": {
+    "kysa24-sns": {
+      "hosting": {
+        "admin": [
+          "kysa24-admin"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
