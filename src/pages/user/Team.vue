@@ -9,7 +9,6 @@
       </Container>
       <template v-else>
         <Container title="조 등록정보">
-          <Box>foo bar</Box>
           <ListColumn
             :table-config="TeamLeaderTable"
             :data="team!.leader"
@@ -102,6 +101,9 @@ async function tableActionHandler(payload: { action: string; items: any[] }) {
     return
   }
   switch (payload.action) {
+    case 'changeLeader':
+      window.alert('not supported')
+      break
     case 'changePwd':
       userSelected.value = payload.items[0].ref
       changePwdModal.value?.show()
